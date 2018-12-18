@@ -140,9 +140,6 @@ public class Day6 {
                     count++;
                 }
             }
-            if (i % 1000 == 0) {
-                System.out.println(i);
-            }
         }
         System.out.println(count);
     }
