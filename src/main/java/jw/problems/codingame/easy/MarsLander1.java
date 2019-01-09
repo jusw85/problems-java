@@ -1,5 +1,6 @@
 package jw.problems.codingame.easy;
 
+import java.awt.Point;
 import java.util.Scanner;
 
 /**
@@ -74,35 +75,98 @@ import java.util.Scanner;
  */
 public class MarsLander1 {
 
-    public static void main(String args[]) {
-        Scanner in = new Scanner(System.in);
-        int surfaceN = in.nextInt(); // the number of points used to draw the surface of Mars.
-        for (int i = 0; i < surfaceN; i++) {
-            int landX = in.nextInt(); // X coordinate of a surface point. (0 to 6999)
-            int landY = in.nextInt(); // Y coordinate of a surface point. By linking all the points together in a sequential fashion, you form the surface of Mars.
-        }
+    private static Point[] points;
+    private static Point lbound;
+    private static Point rbound;
 
-        double gravity = -3.711;
-        // game loop
-        while (true) {
-            int X = in.nextInt();
-            int Y = in.nextInt();
-            int hSpeed = in.nextInt(); // the horizontal speed (in m/s), can be negative.
-            int vSpeed = in.nextInt(); // the vertical speed (in m/s), can be negative.
-            int fuel = in.nextInt(); // the quantity of remaining fuel in liters.
-            int rotate = in.nextInt(); // the rotation angle in degrees (-90 to 90).
-            int power = in.nextInt(); // the thrust power (0 to 4).
+    private static double X;
+    private static double Y;
+    private static double hSpeed;
+    private static double vSpeed;
+    private static int fuel;
+    private static int rotate;
+    private static int power;
+    private static final double G = -3.711;
 
-            // Write an action using System.out.println()
-            // To debug: System.err.println("Debug messages...");
-            int thrust = 3;
-            if (vSpeed < -36) {
-                thrust = 4;
+    private static void initLanding() {
+        Point prev = points[0];
+        lbound = new Point(-1, -1);
+        rbound = new Point(-1, -1);
+        for (int i = 1; i < points.length; i++) {
+            if (points[i].y == prev.y) {
+                lbound = prev;
+                rbound = points[i];
+                break;
             }
-
-            // 2 integers: rotate power. rotate is the desired rotation angle (should be 0 for level 1), power is the desired thrust power (0 to 4).
-            System.out.println("0 " + thrust);
+            prev = points[i];
         }
     }
 
+    private static void parseInput(Scanner in) {
+        int surfaceN = in.nextInt(); // the number of points used to draw the surface of Mars.
+        points = new Point[surfaceN];
+        for (int i = 0; i < surfaceN; i++) {
+            int landX = in.nextInt(); // X coordinate of a surface point. (0 to 6999)
+            int landY = in.nextInt(); // Y coordinate of a surface point. By linking all the points together in a sequential fashion, you form the surface of Mars.
+            points[i] = new Point(landX, landY);
+        }
+        initLanding();
+    }
+
+    public static void main(String args[]) {
+        Scanner in = new Scanner(System.in);
+        parseInput(in);
+
+        // game loop
+        while (true) {
+            updateInput(in);
+            double s = Y - lbound.y;
+            double a1 = -G;
+            double a2 = -(G + 4);
+            double u1 = 0;
+            double v2 = 40;
+
+            double s1 = (((Math.pow(v2, 2) - Math.pow(u1, 2)) / 2) - (a2 * s)) / (a1 - a2);
+            double s2 = s - s1;
+            double v1 = Math.sqrt(Math.pow(u1, 2) + (2 * a1 * s1));
+            double t1 = (v1 - u1) / a1;
+
+            for (int i = 0; i < t1 - 3; i++) {
+                System.out.println("0 0");
+            }
+            while (true) {
+                System.out.println("0 4");
+            }
+        }
+    }
+
+    public static void updateInput(Scanner in) {
+        X = in.nextInt();
+        Y = in.nextInt();
+        hSpeed = in.nextInt(); // the horizontal speed (in m/s), can be negative.
+        vSpeed = in.nextInt(); // the vertical speed (in m/s), can be negative.
+        fuel = in.nextInt(); // the quantity of remaining fuel in liters.
+        rotate = in.nextInt(); // the rotation angle in degrees (-90 to 90).
+        power = in.nextInt(); // the thrust power (0 to 4).
+    }
+
+    public static void printState() {
+        System.err.println(X + " " + Y);
+        System.err.println(hSpeed + " " + vSpeed);
+        System.err.println(fuel);
+        System.err.println(rotate + " " + power);
+    }
+
+    public static void tick() {
+        double rotateR = Math.toRadians(rotate);
+        double hThrust = -power * Math.sin(rotateR);
+        double vThrust = power * Math.cos(rotateR);
+        double vA = vThrust + G;
+        double hA = hThrust;
+        X += vSpeed + (vA / 2);
+        Y += hSpeed + (hA / 2);
+        vSpeed += vA;
+        hSpeed += hA;
+        fuel -= power;
+    }
 }
