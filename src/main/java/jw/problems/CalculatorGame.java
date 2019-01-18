@@ -7,15 +7,18 @@ import java.util.Scanner;
 
 /**
  * https://play.google.com/store/apps/details?id=com.sm.calculateme
+ * Simple solver for the calculator game
+ * Supports basic arithmetic operations, insert number, reverse, and delete last number
+ * Sample format is {"+ 1", "- 1", "* 1", "/ 1", "i 1", "r", "<"} respectively
  */
 public class CalculatorGame {
     public static DecimalFormat df = new DecimalFormat("#");
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         int startValue = 0;
         int goal = 102;
         int maxMoves = 4;
-        String[] ops = {"i 10", "<", "+ 1"};
+        String[] ops = {"+ 1", "<", "i 10"};
         String sol = solve(startValue, goal, maxMoves, ops);
         System.out.println(sol);
     }
@@ -47,12 +50,11 @@ public class CalculatorGame {
             }
         }
         return false;
-
     }
 
     public static class Op {
-        public char op;
-        public double val;
+        private char op;
+        private double val;
 
         public String toString() {
             return "" + op + (int) val;
