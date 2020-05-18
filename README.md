@@ -8,3 +8,4 @@ Includes:
 - [Codility](https://github.com/jusw85/problems-java/tree/master/src/main/java/jw/problems/codility)
 - [Codingame](https://github.com/jusw85/problems-java/tree/master/src/main/java/jw/problems/codingame)
 - [Leetcode](https://github.com/jusw85/problems-java/tree/master/src/main/java/jw/problems/leetcode)
+- [Various Solvers](https://github.com/jusw85/problems-java/tree/master/src/main/java/jw/problems)
