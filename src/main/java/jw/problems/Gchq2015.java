@@ -20,7 +20,7 @@ public class Gchq2015 {
     }
 
     private static void part1() throws IOException {
-        Nonogram solver = new Nonogram(new File("etc/nonograms/gchq2015.txt"));
+        NonogramSolver solver = new NonogramSolver(new File("etc/nonograms/gchq2015.txt"));
         solver.solve();
         solver.printImage(new File("./out.png"));
     }

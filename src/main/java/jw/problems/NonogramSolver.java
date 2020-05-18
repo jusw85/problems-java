@@ -17,10 +17,10 @@ import java.util.regex.Pattern;
  * (numRows rows of row constraints)
  * (numCols rows of column constraints)
  */
-public class Nonogram {
+public class NonogramSolver {
 
     public static void main(String[] args) throws IOException {
-        Nonogram solver = new Nonogram(new File("etc/nonograms/griddler-207129.txt"));
+        NonogramSolver solver = new NonogramSolver(new File("etc/nonograms/griddler-207129.txt"));
         solver.solve();
         solver.print();
         solver.printImage(new File("./out.png"));
@@ -41,7 +41,7 @@ public class Nonogram {
     public Pattern[] rowPatterns;
     public Pattern[] colPatterns;
 
-    public Nonogram(File file) {
+    public NonogramSolver(File file) {
         setFile(file);
     }
 
