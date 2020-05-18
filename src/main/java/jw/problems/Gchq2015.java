@@ -1,6 +1,12 @@
 package jw.problems;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
+ * Nonogram solver for GCHQ 2015 Part 1
+ * https://www.gchq.gov.uk/information/director-gchq-s-christmas-puzzle-2015---part-1
+ *
  * Brute forcing GCHQ 2015 Part 4
  * http://www.cub-zone-often.org.uk/layered/
  * https://www.gchq.gov.uk/information/director-gchqs-christmas-puzzle-part-4
@@ -8,7 +14,18 @@ package jw.problems;
  */
 public class Gchq2015 {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        part1();
+//        part4();
+    }
+
+    private static void part1() throws IOException {
+        Nonogram solver = new Nonogram(new File("etc/nonograms/gchq2015.txt"));
+        solver.solve();
+        solver.printImage(new File("./out.png"));
+    }
+
+    private static void part4() {
         int i = 52;
         String j = "30.87";
         for (int k = 0; k < 256; k++) {
