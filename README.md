@@ -7,4 +7,3 @@ Includes:
 - [Atcoder](https://github.com/jusw85/problems-java/tree/master/src/main/java/jw/problems/atcoder)
 - [Codility](https://github.com/jusw85/problems-java/tree/master/src/main/java/jw/problems/codility)
 - [Leetcode](https://github.com/jusw85/problems-java/tree/master/src/main/java/jw/problems/leetcode)
-- [Various Solvers](https://github.com/jusw85/problems-java/tree/master/src/main/java/jw/problems)

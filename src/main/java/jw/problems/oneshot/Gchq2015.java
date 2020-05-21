@@ -1,4 +1,6 @@
-package jw.problems;
+package jw.problems.oneshot;
+
+import jw.problems.NonogramSolver;
 
 import java.io.File;
 import java.io.IOException;

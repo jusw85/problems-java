@@ -1,4 +1,4 @@
-package jw.problems;
+package jw.problems.oneshot;
 
 import java.util.ArrayList;
 import java.util.List;
