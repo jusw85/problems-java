@@ -1,4 +1,4 @@
-package jw.problems;
+package jw.problems.algorithms;
 
 import java.util.Arrays;
 
@@ -16,7 +16,7 @@ public class Permutation {
 //        p2.permute("ABXYZCD", 2,4);
 
         Permutator p3 = new Lexicographic();
-        p3.permute("CBBA");
+        p3.permute("3221");
     }
 
     private static class Simple1 implements Permutator {
