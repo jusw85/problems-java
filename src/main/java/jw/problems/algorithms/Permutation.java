@@ -15,16 +15,16 @@ public class Permutation {
 //        System.out.println(p2.permute("ABBC"));
 //        System.out.println(p2.permute("ABXYZCD", 2, 4));
 
-//        Permutator p3 = new Lexicographic();
-//        System.out.println(p3.permute("3221"));
+        Permutator p3 = new Lexicographic();
+        System.out.println(p3.permute("3221"));
 
-        StringPermutationV1 perm = new StringPermutationV1("ABC");
-        int i = 0;
-        for (String s : perm) {
-            i++;
-            System.out.println(s);
-        }
-        System.out.println(i);
+//        StringPermutationV1 perm = new StringPermutationV1("ABC");
+//        int i = 0;
+//        for (String s : perm) {
+//            i++;
+//            System.out.println(s);
+//        }
+//        System.out.println(i);
     }
 
     private static class Simple1 implements Permutator {
@@ -87,6 +87,11 @@ public class Permutation {
 
         @Override
         public List<String> permute(String str) {
+            return iterative(str);
+//            return recursive(str);
+        }
+
+        public List<String> iterative(String str) {
             List<String> results = new ArrayList<>();
             char[] chars = str.toCharArray();
             Arrays.sort(chars);
@@ -99,14 +104,44 @@ public class Permutation {
                 if (i < 0) {
                     break;
                 }
+//                chars[i+1] >= ... >= chars[length-1] is descending
+                assert (chars[i] < chars[i + 1]);
 
                 int j = chars.length - 1;
                 for (; chars[i] >= chars[j]; j--) ;
+//                chars[j] is the smallest number above chars[i], i+1 <= j < chars.length
+                assert (j > i);
+                assert (chars[j] > chars[i]);
 
                 swap(chars, i, j);
                 reverse(chars, i + 1, chars.length - 1);
             }
             return results;
+        }
+
+        public List<String> recursive(String str) {
+            List<String> results = new ArrayList<>();
+            char[] chars = str.toCharArray();
+            Arrays.sort(chars);
+            r(chars, 0, results);
+            return results;
+        }
+
+        private void r(char[] chars, int idx, List<String> results) {
+            if (idx >= chars.length - 1) {
+                results.add(new String(chars));
+                return;
+            }
+            while (true) {
+                r(chars, idx + 1, results);
+                int i = chars.length - 1;
+                for (; i > idx && chars[i] <= chars[idx]; i--) ;
+//                i <= idx || chars[i] > chars[idx]
+                if (i == idx)
+                    break;
+                swap(chars, idx, i);
+                reverse(chars, idx + 1, chars.length - 1);
+            }
         }
 
         private void reverse(char[] chars, int l, int r) {
